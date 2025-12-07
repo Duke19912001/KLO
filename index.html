@@ -273,8 +273,10 @@
                 <div class="formula">CaCO<sub>3</sub> + 2HCl &rarr; CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub> &uarr;</div>
             </li>
         </ul>
+        
         <img src="images/kwas.png" alt="Zdjęcie skały musującej pod wpływem kwasu">
     </div>
+
     <div id="slide4-img-focus" class="step" data-x="2000" data-y="400" data-scale="0.8"></div>
 
     <div id="slide5" class="step slide" data-x="0" data-y="0">
@@ -480,10 +482,292 @@
             }, false);
         });
     })(document);
+    
+    var makeDomElement = function ( html ) {
+        var tempDiv = document.createElement("div");
+        tempDiv.innerHTML = html;
+        return tempDiv.firstChild;
+    };
 
+    (function ( document, window ) {
+        'use strict';
+        var toolbar = document.getElementById("impress-toolbar");
+        var groups = [];
+
+        var triggerEvent = function (el, eventName, detail) {
+            var event = document.createEvent("CustomEvent");
+            event.initCustomEvent(eventName, true, true, detail);
+            el.dispatchEvent(event);
+        };
+        
+        var getGroupElement = function(index){
+            var id = "impress-toolbar-group-" + index;
+            if(!groups[index]){
+                groups[index] = document.createElement("span");
+                groups[index].id = id;
+                var nextIndex = getNextGroupIndex(index);
+                if ( nextIndex === undefined ){
+                    toolbar.appendChild(groups[index]);
+                }
+                else{
+                    toolbar.insertBefore(groups[index], groups[nextIndex]);
+                }
+            }
+            return groups[index];
+        };
+        
+        var getNextGroupIndex = function(index){
+            var i = index+1;
+            while( ! groups[i] && i < groups.length) {
+                i++;
+            }
+            if( i < groups.length ){
+                return i;
+            }
+        };
+
+        if (toolbar) {
+            toolbar.addEventListener("impress:toolbar:appendChild", function( e ){
+                var group = getGroupElement(e.detail.group);
+                group.appendChild(e.detail.element);
+            });
+            toolbar.addEventListener("impress:toolbar:insertBefore", function( e ){
+                toolbar.insertBefore(e.detail.element, e.detail.before);
+            });
+            toolbar.addEventListener("impress:toolbar:removeWidget", function( e ){
+                toolbar.removeChild(e.detail.remove);
+            });
+            document.addEventListener("impress:init", function( event ) {
+                var api = event.detail.api;
+                api.lib.gc.addCallback( function() {
+                    toolbar.innerHTML = '';
+                    groups = [];
+                });
+            });
+        }
+    })(document, window);
+
+    (function(document) {
+        'use strict';
+        var api;
+        var root;
+        var steps;
+        var hideSteps = [];
+        var prev, select, next;
+        
+        var triggerEvent = function (el, eventName, detail) {
+            var event = document.createEvent("CustomEvent");
+            event.initCustomEvent(eventName, true, true, detail);
+            el.dispatchEvent(event);
+        };
+
+        var selectOptionsHtml = function(){
+            var options = "";
+            for ( var i = 0; i < steps.length; i++ ) {
+                if ( hideSteps.indexOf( steps[i] ) < 0 ) {
+                    options = options + '<option value="' + steps[i].id + '">' + steps[i].id + '</option>' + "\n";
+                }
+            }
+            return options;    
+        };
+
+        var addNavigationControls = function( event ) {
+            api = event.detail.api;
+            var gc = api.lib.gc;
+            root = event.target;
+            steps = root.querySelectorAll(".step");
+            var toolbar = document.querySelector("#impress-toolbar");
+
+            var prevHtml   = '<button id="impress-navigation-ui-prev" title="Previous" class="impress-navigation-ui" style="margin-right:5px; cursor:pointer;">&lt;</button>';
+            var selectHtml = '<select id="impress-navigation-ui-select" title="Go to" class="impress-navigation-ui" style="margin-right:5px;">' + "\n"
+                            + selectOptionsHtml()
+                            + '</select>';
+            var nextHtml   = '<button id="impress-navigation-ui-next" title="Next" class="impress-navigation-ui" style="cursor:pointer;">&gt;</button>';
+
+            prev = makeDomElement( prevHtml );
+            prev.addEventListener( "click", function( event ) { api.prev(); });
+            
+            select = makeDomElement( selectHtml );
+            select.addEventListener( "change", function( event ) { api.goto( event.target.value ); });
+            
+            gc.addEventListener(root, "impress:steprefresh", function(event){
+                steps = root.querySelectorAll(".step");
+                select.innerHTML = "\n" + selectOptionsHtml();
+                select.value = event.target.id;
+            });
+            
+            next = makeDomElement( nextHtml );
+            next.addEventListener( "click", function() { api.next(); });
+            
+            triggerEvent(toolbar, "impress:toolbar:appendChild", { group : 0, element : prev } );
+            triggerEvent(toolbar, "impress:toolbar:appendChild", { group : 0, element : select } );
+            triggerEvent(toolbar, "impress:toolbar:appendChild", { group : 0, element : next } );
+        };
+
+        document.addEventListener("impress:init", function (event) {
+            var toolbar = document.querySelector("#impress-toolbar");
+            if(toolbar) {
+                addNavigationControls( event );
+            }
+        }, false);
+    })(document);
+
+    (function(document) {
+        'use strict';
+        var api;
+        var root;
+        var timeoutHandle;
+        var autoplayDefault = 0;
+        var currentStepTimeout = 0;
+        var status = "not clicked";
+        var toolbarButton;
+
+        var toNumber = function(numeric, fallback){ return isNaN(numeric) ? (fallback || 0) : Number(numeric); };
+        
+        var triggerEvent = function (el, eventName, detail) {
+            var event = document.createEvent("CustomEvent");
+            event.initCustomEvent(eventName, true, true, detail);
+            el.dispatchEvent(event);
+        };
+
+        var setAutoplayTimeout = function(timeout) {
+            if ( timeoutHandle ) { clearTimeout(timeoutHandle); }
+            if ( timeout > 0) { timeoutHandle = setTimeout( function() { api.next(); }, timeout*1000 ); }
+            setButtonText();
+        };
+
+        var toggleStatus = function() {
+            if (currentStepTimeout>0 && status!="paused") { status="paused"; }
+            else { status="playing"; }
+        };
+
+        var getButtonText = function() {
+            if (currentStepTimeout>0 && status!="paused") { return "||"; }
+            else { return "&#9654;"; }
+        };
+
+        var setButtonText = function() {
+            if (toolbarButton) {
+                var buttonWidth = toolbarButton.offsetWidth;
+                var buttonHeight = toolbarButton.offsetHeight;
+                toolbarButton.innerHTML = getButtonText();
+                if (!toolbarButton.style.width && buttonWidth > 0) toolbarButton.style.width = buttonWidth + "px";
+                if (!toolbarButton.style.height && buttonHeight > 0) toolbarButton.style.height = buttonHeight + "px";
+            }
+        };
+
+        var addToolbarButton = function (toolbar) {
+            var html = '<button id="impress-autoplay-playpause" title="Autoplay" class="impress-autoplay" style="margin-left:10px; cursor:pointer;">' + getButtonText() + '</button>';
+            toolbarButton = makeDomElement( html );
+            toolbarButton.addEventListener( "click", function( event ) {
+                toggleStatus();
+                if (status=="playing") {
+                    if (autoplayDefault == 0) { autoplayDefault = 7; }
+                    if ( currentStepTimeout == 0 ) { currentStepTimeout = autoplayDefault; }
+                    setAutoplayTimeout(currentStepTimeout);
+                }
+                else if (status=="paused") { setAutoplayTimeout(0); }
+            });
+            triggerEvent(toolbar, "impress:toolbar:appendChild", { group : 10, element : toolbarButton } );
+        };
+
+        var reloadTimeout = function ( event ) {
+            var step = event.target;
+            currentStepTimeout = toNumber( step.dataset.autoplay, autoplayDefault );
+            if (status=="paused") { setAutoplayTimeout(0); }
+            else { setAutoplayTimeout(currentStepTimeout); }
+        };
+
+        document.addEventListener("impress:init", function (event) {
+            api = event.detail.api;
+            root = event.target;
+            var data = root.dataset;
+            if (data.autoplay) { autoplayDefault = toNumber(data.autoplay, 0); }
+            var toolbar = document.querySelector("#impress-toolbar");
+            if (toolbar) { addToolbarButton(toolbar); }
+            api.lib.gc.addCallback( function(rootId){ clearTimeout(timeoutHandle); });
+        }, false);
+
+        document.addEventListener("impress:stepenter", function (event) { reloadTimeout(event); }, false);
+        document.addEventListener("impress:substep:stepleaveaborted", function (event) { reloadTimeout(event); }, false);
+    })(document);
+
+    (function(document){
+        'use strict';
+        var toNumber = function(numeric, fallback){ return isNaN(numeric) ? (fallback || 0) : Number(numeric); };
+        var isNumber = function(numeric) { return !isNaN(numeric); };
+
+        var goto = function(event) {
+            if ( (!event) || (!event.target) ) return;
+            var data = event.target.dataset;
+            var steps = document.querySelectorAll(".step");
+            
+            if ( isNumber(data.gotoNext) && event.detail.reason == "next" ) {
+                event.detail.next = steps[data.gotoNext];
+                event.detail.transitionDuration = toNumber( event.detail.next.dataset.transitionDuration, event.detail.transitionDuration);
+                return;
+            }
+            if ( data.gotoNext && event.detail.reason == "next" ) {
+                var newTarget = document.getElementById( data.gotoNext );
+                if ( newTarget && newTarget.classList.contains("step") ) {
+                    event.detail.next = newTarget;
+                    event.detail.transitionDuration = toNumber( event.detail.next.dataset.transitionDuration, event.detail.transitionDuration);
+                    return;
+                }
+            }
+            if ( isNumber(data.gotoPrev) && event.detail.reason == "prev" ) {
+                event.detail.next = steps[data.gotoPrev];
+                event.detail.transitionDuration = toNumber( event.detail.next.dataset.transitionDuration, event.detail.transitionDuration);
+                return;
+            }
+            if ( data.gotoPrev && event.detail.reason == "prev" ) {
+                var newTarget = document.getElementById( data.gotoPrev );
+                if ( newTarget && newTarget.classList.contains("step") ) {
+                    event.detail.next = newTarget;
+                    event.detail.transitionDuration = toNumber( event.detail.next.dataset.transitionDuration, event.detail.transitionDuration);
+                    return;
+                }
+            }
+            if ( isNumber(data.goto) ) {
+                event.detail.next = steps[data.goto];
+                event.detail.transitionDuration = toNumber( event.detail.next.dataset.transitionDuration, event.detail.transitionDuration);
+                return;
+            }
+            if ( data.goto ) {
+                var newTarget = document.getElementById( data.goto );
+                if ( newTarget && newTarget.classList.contains("step") ) {
+                    event.detail.next = newTarget;
+                    event.detail.transitionDuration = toNumber( event.detail.next.dataset.transitionDuration, event.detail.transitionDuration);
+                    return;
+                }
+            }
+        };
+        window.impress.addPreStepLeavePlugin( goto );
+    })(document);
+
+    (function(document){
+        'use strict';
+        var toolbar = document.getElementById("impress-toolbar");
+        var timeout;
+        
+        if (toolbar) {
+            toolbar.style.transition = "opacity 0.5s";
+            
+            var showToolbar = function() {
+                toolbar.style.opacity = "1";
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    toolbar.style.opacity = "0";
+                }, 3000);
+            };
+            document.addEventListener("mousemove", showToolbar);
+            document.addEventListener("click", showToolbar);
+            document.addEventListener("touchstart", showToolbar);y
+            showToolbar();
+        }
+    })(document);
     impress().init();
 </script>
 
 </body>
-
 </html>
