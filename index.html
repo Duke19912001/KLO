@@ -4,35 +4,55 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1024" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Skały Wapienne | Jakub K.</title>
+    <title>Król Owoców i Czerwone Złoto: Geografia Rolnictwa Egzotycznego</title>
     
-    <meta name="description" content="Prezentacja na temat skał wapiennych, ich chemii, cyklu i zastosowania." />
+    <meta name="description" content="Prezentacja na temat geografii rolnictwa duriana i szafranu." />
     <meta name="author" content="Jakub K." />
 
+
     <style>
-        @font-face {
-            font-family: 'Open Sans';
-            font-style: normal;
-            font-weight: 400;
-            src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
         }
-        @font-face {
-            font-family: 'PT Serif';
-            font-style: normal;
-            font-weight: 400;
-            src: local('PT Serif'), local('PTSerif-Regular'), url(http://fonts.gstatic.com/s/ptserif/v8/CPRt--GVMETgA6YEaoGitxTbgVql8nDJpwnrE27mub0.woff2) format('woff2');
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            min-height: 740px;
+            background: white;
+            color: rgb(70, 70, 70);
+            overflow: hidden;
         }
-        @font-face {
-            font-family: 'PT Serif';
-            font-style: italic;
-            font-weight: 400;
-            src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/b31S45a_TNgaBApZhTgE6CEAvth_LlrfE80CYdSH47w.woff2) format('woff2');
+
+        .slide b, .slide strong { font-weight: bold; color: #333; }
+        i, em { font-style: italic; }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            padding: 0 0.1em;
+            background: rgba(255,255,255,0.5);
+            border-radius: 0.2em;
+            transition: 0.5s;
         }
-        @font-face {
-            font-family: 'PT Serif';
-            font-style: normal;
-            font-weight: 700;
-            src: local('PT Serif Bold'), local('PTSerif-Bold'), url(http://fonts.gstatic.com/s/ptserif/v8/QABk9IxT-LFTJ_dQzv7xpCYE0-AqJ3nfInTTiDXDjU4.woff2) format('woff2');
+        a:hover, a:focus {
+            background: rgba(200,200,200,1);
         }
 
         .fallback-message {
@@ -47,18 +67,81 @@
         }
         .fallback-message p { margin-bottom: 10px; }
         .impress-supported .fallback-message { display: none; }
-        
+
         .step {
+            position: relative;
+            width: 1000px;
+            padding: 40px;
+            margin: 20px auto;
             box-sizing: border-box;
-            font-family: 'PT Serif', georgia, serif;
-            font-size: 48px;
+            font-size: 32px;
             line-height: 1.5;
+            transition: opacity 1s;
         }
+
+        .impress-enabled .step {
+            margin: 0;
+            opacity: 0.15;
+            transition: opacity 1s;
+        }
+        .impress-enabled .step.active { opacity: 1; }
+
+        .slide {
+            display: block;
+            width: 1000px;
+            height: 750px;
+            padding: 40px 60px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+
+        .slide h1, .slide h2, .slide h3 {
+            margin-bottom: 0.5em;
+            margin-top: 0.2em;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        .slide h1 { font-size: 64px; margin-top: 100px; }
+        .slide h2 { font-size: 48px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
         
-        .substep { opacity: 1; }
-        .substep.substep-visible { opacity: 1; transition: opacity 1s; }
+        .slide p { margin-bottom: 20px; }
+        .slide ul, .slide ol { margin-left: 40px; margin-bottom: 20px; }
+        .slide li { margin-bottom: 10px; }
         
-        .notes { display: none; }
+        .slide img {
+            display: block;
+            margin: 20px auto;
+            max-width: 90%;
+            max-height: 350px;
+            object-fit: contain;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .slide table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .slide th, .slide td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .slide th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .slide tr:nth-child(even) { background-color: #f9f9f9; }
+
+        #overview { display: none; }
+        .impress-on-overview .step {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto !important; 
+        }
 
         .impress-enabled div#impress-toolbar {
             position: fixed;
@@ -70,6 +153,19 @@
         .impress-enabled div#impress-toolbar > span { margin-right: 10px; }
         .impress-enabled div#impress-toolbar.impress-toolbar-show { display: block; }
         .impress-enabled div#impress-toolbar.impress-toolbar-hide { display: none; }
+
+        .impress-navigation-ui, .impress-autoplay {
+            appearance: auto;
+            -webkit-appearance: auto;
+            background: buttonface;
+            color: buttontext;
+            border: 2px outset buttonface;
+            border-radius: 2px;
+            padding: 1px 6px;
+            font-size: 13.33px;
+            margin: 0;
+            cursor: pointer;
+        }
 
         #impress-help {
             display: none;
@@ -86,281 +182,246 @@
             z-index: 100;
             font-family: Verdana, Arial, Sans;
         }
-        #impress-help table { margin: 0 auto; }
-        #impress-help td { padding: 0.2em 1em; text-align: left; font-size: 16px; }
-        #impress-help td:first-child { text-align: right; font-weight: bold; }
-
-        .impress-progress {
-            position: absolute;
-            left: 59px;
-            bottom: 1px;
-            text-align: left;
-            font-size: 10pt;
-            opacity: 0.6;
-        }
-        .impress-enabled .impress-progressbar {
-            position: absolute;
-            right: 318px;
-            bottom: 1px;
-            left: 118px;
-            border-radius: 7px;
-            border: 2px solid rgba(100, 100, 100, 0.2);
-        }
-        .impress-progressbar { right: 118px; }
-        .impress-progressbar DIV {
-            width: 0;
-            height: 2px;
-            border-radius: 5px;
-            background: rgba(75, 75, 75, 0.4);
-            transition: width 1s linear;
-        }
-
-        body {
-            font-family: 'PT Sans', sans-serif;
-            min-height: 740px;
-            background: white; 
-            color: rgb(70, 70, 70);
-        }
-        
-        .step {
-            position: relative;
-            width: 1200px;
-            padding: 40px;
-            margin: 20px auto;
-            box-sizing: border-box;
-            font-family: 'PT Serif', georgia, serif;
-            font-size: 40px;
-            line-height: 1.5;
-        }
-
-        .slide {
-            display: block;
-            width: 1200px;
-            height: 900px;
-            padding: 40px 60px;
-            background-color: white;
-            
+        #impress-help table { margin: 0 auto; width: auto; }
+        #impress-help td { 
+            padding: 0.2em 1em; 
+            text-align: left; 
+            font-size: 16px; 
             border: none;
-            border-radius: 0;
-            box-shadow: none;
-            
-            color: rgb(102, 102, 102);
-            text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-            font-family: 'Open Sans', Arial, sans-serif;
-            font-size: 36px;
-            line-height: 1.4;
-            letter-spacing: -1px;
+        }
+        #impress-help td:first-child { 
+            text-align: right; 
+            font-weight: bold; 
+            width: auto;
         }
 
-        .slide h1, .slide h2, .slide h3 {
-            margin-bottom: 0.5em;
-            margin-top: 0.5em;
-            text-align: center;
-        }
-
-        .slide h1 { font-size: 70px; }
-        .slide h2 { font-size: 50px; }
-        .slide h3 { font-size: 40px; color: #666; }
-
-        .slide li {
-            margin-top: 0.3em;
-            margin-bottom: 0.3em;
-            margin-left: 1.5em;
-        }
-
-        .slide strong {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .center { text-align: center; }
-        .formula {
-            font-family: "Courier New", monospace;
-            background: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
-        }
+        .future .fly-in { transform: translateY(-500px); opacity: 0; }
+        .present .fly-in { transform: translateY(0); opacity: 1; transition: 1s; }
         
-        .slide img {
-            display: block;
-            margin: 30px auto;
-            max-width: 90%;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        #title h1 { color: #8B0000;}
+        #title p { text-align: center; color: #555; }
 
-        #title h1 { margin-top: 150px; }
-        #title h2 { margin-bottom: 50px; }
-        
-        .impress-on-overview .step { opacity: 1; cursor: pointer; }
+        .impress-enabled { pointer-events: none }
+        .impress-enabled #impress { pointer-events: auto }
+        .impress-enabled #impress-toolbar { pointer-events: auto }
     </style>
 </head>
 
 <body class="impress-not-supported">
 
 <div class="fallback-message">
-    <p>Twoja przeglądarka <b>nie obsługuje funkcji wymaganych</b> przez impress.js, więc widzisz uproszczoną wersję tej prezentacji.</p>
-    <p>Aby uzyskać najlepsze wrażenia, użyj najnowszej przeglądarki <b>Chrome</b>, <b>Safari</b> lub <b>Firefox</b>.</p>
+    <p>Twoja przeglądarka <b>nie obsługuje funkcji wymaganych</b> przez impress.js.</p>
+    <p>Aby zobaczyć prezentację w pełnej krasie, użyj najnowszej wersji <b>Chrome</b>, <b>Safari</b> lub <b>Firefox</b>.</p>
 </div>
 
-<div id="impress" data-transition-duration="1000" data-width="1920" data-height="1080" data-max-scale="3" data-min-scale="0" data-perspective="1000">
+<div id="impress"
+    data-transition-duration="1000"
+    data-width="1024"
+    data-height="768"
+    data-max-scale="3"
+    data-min-scale="0"
+    data-perspective="1000"
+    data-autoplay="0">
 
-    <div id="slide1" class="step slide title" data-x="-2000" data-y="-1500">
-        <h1>Prezentacja: Skały Wapienne</h1>
-        <h2>(Jakub K.)</h2>
-        <h3>Wprowadzenie do skał wapiennych</h3>
-        <hr>
-        <p><strong>Tytuł:</strong> Skała, która zbudowała świat: Wapień</p>
-        <ul>
-            <li><strong>Co to jest?</strong> Skała osadowa występująca na całym świecie (około 10% wszystkich skał osadowych).</li>
-            <li><strong>Pochodzenie:</strong> Utworzona miliony lat temu z nagromadzenia muszli, koralowców i szkieletów morskich na dnie oceanu.</li>
-            <li><strong>Kluczowy minerał:</strong> Głównym składnikiem jest <strong>Kalcyt</strong>.</li>
-        </ul>
-        
-        <img src="images/White_Cliffs_of_Dover_02.jpg" alt="Zdjęcie białego klifu wapiennego lub skamieliny">
-    </div>
-    
-    <div id="slide1-img-focus" class="step" data-x="-2000" data-y="-1100" data-scale="0.8"></div>
-
-    <div id="slide2" class="step slide" data-x="0" data-y="-1500">
-        <h2>Chemiczne serce: Węglan wapnia</h2>
-        <h3>Chemia ukryta w skale</h3>
-        <ul>
-            <li><strong>Nazwa chemiczna:</strong> Węglan wapnia.</li>
-            <li><strong>Wzór chemiczny:</strong> <strong>CaCO<sub>3</sub></strong> (Jeden Wapń, Jeden Węgiel, Trzy Tleny).</li>
-            <li><strong>Właściwości:</strong>
-                <ul>
-                    <li>Jest to sól nieorganiczna.</li>
-                    <li>Nierozpuszczalny w czystej wodzie (nie rozpuszcza się jak sól kuchenna).</li>
-                    <li>Reaguje z kwasami (ważne dla identyfikacji!).</li>
-                </ul>
-            </li>
-        </ul>
+    <div id="title" class="step slide" data-x="0" data-y="0" data-scale="4">
+        <h1>Król Owoców i Czerwone Złoto</h1>
+        <h2>Geografia Rolnictwa Egzotycznego</h2>
+        <p>Globalizacja, Durian i Szafran</p>
+        <img src="images/fruits_spices_collage.png" alt="Kolaż owoców i przypraw" style="max-height: 250px;">
     </div>
 
-    <div id="slide3" class="step slide" data-x="2000" data-y="-1500">
-        <h2>Trzy formy, jeden wzór</h2>
-        <h3>Trzy oblicza węglanu wapnia</h3>
+    <div id="slide-1" class="step slide" data-x="0" data-y="2500" data-z="0">
+        <h2>Wstęp – Dwa bieguny rolnictwa</h2>
         <ul>
-            <li>Wszystkie trzy są chemicznie identyczne (CaCO<sub>3</sub>), ale fizycznie różne:
-                <ol>
-                    <li><strong>Kreda:</strong> Miękka, porowata, utworzona z mikroskopijnych organizmów morskich. Używana do pisania.</li>
-                    <li><strong>Wapień:</strong> Twardsza skała osadowa. Używany w budownictwie i drogownictwie.</li>
-                    <li><strong>Marmur:</strong> Najtwardsza forma. Skała <em>metamorficzna</em> (wapień zmieniony przez wysoką temperaturę i ciśnienie). Używany do posągów i podłóg.</li>
-                </ol>
-            </li>
+            <li><strong>Globalizacja żywności:</strong> Egzotyczne towary na naszych stołach.</li>
+            <li><strong>Durian:</strong> "Król Owoców", tropikalny gigant z Azji Płd-Wsch.</li>
+            <li><strong>Szafran:</strong> "Czerwone Złoto", najdroższa przyprawa świata.</li>
+            <li><strong>Cel:</strong> Zrozumienie uwarunkowań geograficznych i ekonomicznych.</li>
         </ul>
-        
-        <img src="images/formy.png" alt="Kreda, Wapień, Marmur - porównanie">
-    </div>
-    
-    <div id="slide3-img-focus" class="step" data-x="2000" data-y="-1100" data-scale="0.8"></div>
-
-    <div id="slide4" class="step slide" data-x="2000" data-y="0">
-        <h2>Identyfikacja wapienia (Test kwasowy)</h2>
-        <h3>Test laboratoryjny: Jak rozpoznać wapień?</h3>
-        <ul>
-            <li>Chemicy identyfikują wapień używając silnych kwasów (takich jak Kwas chlorowodorowy/solny - HCl).</li>
-            <li><strong>Obserwacja:</strong> Gdy kwas dotknie wapienia, ten gwałtownie musuje (burzy się).</li>
-            <li><strong>Reakcja:</strong> Skała uwalnia gazowy dwutlenek węgla.</li>
-            <li><strong>Równanie:</strong>
-                <div class="formula">CaCO<sub>3</sub> + 2HCl &rarr; CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub> &uarr;</div>
-            </li>
-        </ul>
-        
-        <img src="images/kwas.png" alt="Zdjęcie skały musującej pod wpływem kwasu">
+        <div style="display:flex; justify-content:space-around;">
+            <img src="images/map_asia_iran.png" alt="Mapa Azji i Iranu" style="width:45%">
+            <img src="images/durian_saffron_compare.png" alt="Durian i Szafran" style="width:45%">
+        </div>
     </div>
 
-    <div id="slide4-img-focus" class="step" data-x="2000" data-y="400" data-scale="0.8"></div>
-
-    <div id="slide5" class="step slide" data-x="0" data-y="0">
-        <h2>Cykl wapienny (Część 1)</h2>
-        <h3>Prażenie skały: Rozkład termiczny</h3>
+    <div id="slide-2" class="step slide" data-x="1500" data-y="2500" data-z="-1000" data-rotate="90">
+        <h2>Durian – Charakterystyka botaniczna</h2>
         <ul>
-            <li><strong>Proces:</strong> Jeśli silnie ogrzejemy wapień (powyżej 900&deg;C) w piecu, ulegnie on rozpadowi.</li>
-            <li><strong>Produkt:</strong> Otrzymujemy <strong>Tlenek wapnia (CaO)</strong>, powszechnie znany jako <strong>Wapno palone</strong>.</li>
-            <li><strong>Reakcja:</strong> Rozkład termiczny.</li>
-            <li><strong>Równanie:</strong>
-                <div class="formula">CaCO<sub>3</sub> &rarr; (ogrzewanie) &rarr; CaO + CO<sub>2</sub></div>
-            </li>
-            <li><strong>Zastosowanie:</strong> Wapno palone jest używane w przemysłowej produkcji stali i do neutralizacji kwaśnej gleby.</li>
+            <li><strong>Rodzaj <em>Durio</em>:</strong> Drzewo z Borneo (Azja Płd-Wsch).</li>
+            <li><strong>Wygląd:</strong> 1-3 kg, twarde ostre kolce (malaj. <em>duri</em> = kolec).</li>
+            <li><strong>Jadalne:</strong> Kremowy miąższ, biały do pomarańczowego.</li>
+            <li><strong>Zapach:</strong> Intensywny, siarkowy. Kontrowersyjny (zgniła cebula vs ser).</li>
+        </ul>
+        <img src="images/durian_fruit_structure.png" alt="Budowa owocu duriana">
+    </div>
+
+    <div id="slide-3" class="step slide" data-x="1500" data-y="4000" data-z="-1000" data-rotate="90">
+        <h2>Geografia upraw Duriana</h2>
+        <ul>
+            <li><strong>Producenci:</strong> Tajlandia (95% eksportu), Malezja, Indonezja.</li>
+            <li><strong>Klimat:</strong> Wybitnie tropikalny (wilgotny).</li>
+            <li><strong>Teren:</strong> Przepuszczalne zbocza, gleby laterytowe (unikanie stojącej wody).</li>
+            <li><strong>Sezon:</strong> Maj – Wrzesień.</li>
+        </ul>
+        <img src="images/map_southeast_asia_crops.png" alt="Mapa upraw Azji Płd-Wsch">
+    </div>
+
+    <div id="slide-4" class="step slide" data-x="0" data-y="4000" data-z="0" data-rotate="180">
+        <h2>Durian w kulturze i gospodarce</h2>
+        <ul>
+            <li><strong>Symbolika:</strong> Ikona kultury, temat festiwali.</li>
+            <li><strong>Zakazy:</strong> Zakaz wnoszenia do hoteli i metra (przez zapach).</li>
+            <li><strong>Turystyka:</strong> Agroturystyka durianowa w Malezji.</li>
+        </ul>
+        <div style="display:flex; justify-content:center;">
+            <img src="images/no_durian_sign.png" alt="Znak zakazu duriana" style="margin-right:20px;">
+            <img src="images/durian_market.png" alt="Stragan z durianami">
+        </div>
+    </div>
+
+    <div id="slide-5" class="step slide" data-x="-1500" data-y="4000" data-z="0" data-rotate="180">
+        <h2>Boom na Duriana – Efekt Chin</h2>
+        <ul>
+            <li><strong>Rynek:</strong> Chiny to 66% światowego importu.</li>
+            <li><strong>Popyt:</strong> Symbol statusu dla klasy średniej.</li>
+            <li><strong>Logistyka:</strong> "Zimny Jedwabny Szlak" (szybka kolej + chłodnie).</li>
+            <li><strong>Wartość:</strong> Miliardy dolarów rocznie.</li>
+        </ul>
+        <img src="images/chart_china_durian_import.png" alt="Wykres importu">
+    </div>
+
+    <div id="slide-6" class="step slide" data-x="-1500" data-y="2500" data-z="-1000" data-rotate="270">
+        <h2>Odmiany i technologia upraw</h2>
+        <ul>
+            <li><strong>Monthong:</strong> "Złota Poduszka" (Tajlandia) – łagodny, na eksport.</li>
+            <li><strong>Musang King:</strong> "Hermès wśród durianów" (Malezja) – intensywny, drogi.</li>
+            <li><strong>Technologia:</strong> Mrożenie kriogeniczne (ciekły azot) do transportu.</li>
+        </ul>
+        <img src="images/monthong_vs_musang.png" alt="Porównanie odmian duriana">
+    </div>
+
+    <div id="slide-7" class="step slide" data-x="-1500" data-y="1000" data-z="-1000" data-rotate="270">
+        <h2>Skutki środowiskowe "Boomu"</h2>
+        <ul>
+            <li><strong>Wylesianie:</strong> Wycinka lasów pod plantacje (zagrożenie dla Tygrysa).</li>
+            <li><strong>Monokultury:</strong> Zastępowanie bioróżnorodności jedną odmianą.</li>
+            <li><strong>Ekologia:</strong> Utrata siedlisk nietoperzy (zapylaczy).</li>
+        </ul>
+        <img src="images/infographic_deforestation_bats.png" alt="Infografika: Wylesianie a nietoperze">
+    </div>
+
+    <div id="slide-8" class="step slide" data-x="0" data-y="0" data-z="-4000" data-scale="2">
+        <h2>Szafran – Czerwone Złoto</h2>
+        <ul>
+            <li><strong>Definicja:</strong> Wysuszone znamiona słupka krokusa (*Crocus sativus*).</li>
+            <li><strong>Nazwa:</strong> Arab. *za’farān* ("żółty"/"złoty").</li>
+            <li><strong>Historia:</strong> 3000 lat historii (lek, barwnik, przyprawa).</li>
+            <li><strong>Cena:</strong> 1000 - 8000 USD za kg.</li>
+        </ul>
+        <img src="images/crocus_flower.png" alt="Kwiat szafranu">
+    </div>
+
+    <div id="slide-9" class="step slide" data-x="2500" data-y="0" data-z="-4000" data-rotate-x="45">
+        <h2>Geografia upraw Szafranu</h2>
+        <ul>
+            <li><strong>Iran:</strong> Lider (90% produkcji, region Chorasan).</li>
+            <li><strong>Inni:</strong> Indie (Kaszmir), Hiszpania, Grecja, Maroko.</li>
+            <li><strong>Europa:</strong> Odradzająca się tradycja w małych gospodarstwach.</li>
+        </ul>
+        <img src="images/map_saffron_producers.png" alt="Mapa producentów szafranu">
+    </div>
+
+    <div id="slide-10" class="step slide" data-x="2500" data-y="1500" data-z="-4000" data-rotate-x="45">
+        <h2>Wymagania glebowe i klimatyczne</h2>
+        <ul>
+            <li><strong>Klimat:</strong> Odporny (lato do 40°C, zima do -15°C).</li>
+            <li><strong>Wysokość:</strong> Wyżyny (650–1200 m n.p.m.).</li>
+            <li><strong>Gleba:</strong> Lekka, przepuszczalna (wapienna). Cebulki nie lubią wody!</li>
+            <li><strong>Cykl:</strong> Kwitnie jesienią (październik/listopad).</li>
+        </ul>
+        <img src="images/saffron_cycle_diagram.png" alt="Cykl roczny szafranu">
+    </div>
+
+    <div id="slide-11" class="step slide" data-x="0" data-y="1500" data-z="-4000" data-rotate-y="45">
+        <h2>Dlaczego Szafran jest tak drogi?</h2>
+        <ul>
+            <li><strong>Ręczny zbiór:</strong> Maszyny niszczą delikatne kwiaty.</li>
+            <li><strong>Czas:</strong> Zbiór o świcie (zanim słońce otworzy kwiaty).</li>
+            <li><strong>Skala:</strong> 1 gram = ok. 150-170 kwiatów.</li>
+            <li><strong>Przetwarzanie:</strong> Ręczne oddzielanie czerwonych znamion.</li>
+        </ul>
+        <img src="images/harvesting_saffron.png" alt="Ręczny zbiór szafranu">
+        <p style="text-align:center; font-size: 1.2em; font-weight:bold;">150 kwiatów = 1 gram</p>
+    </div>
+
+    <div id="slide-12" class="step slide" data-x="-2500" data-y="1500" data-z="-4000" data-rotate-y="45">
+        <h2>Jakość i zafałszowania</h2>
+        <ul>
+            <li><strong>Jakość:</strong> Sargol/Coupé (same czerwone końcówki).</li>
+            <li><strong>Chemia:</strong> Krocyna (kolor), Pikrokrocyna (smak), Safranal (zapach).</li>
+            <li><strong>Fałszerstwa:</strong> Włókna kukurydzy, nagietek, oleje (zwiększenie wagi).</li>
+        </ul>
+        <img src="images/saffron_quality_comparison.png" alt="Czyste znamię vs zółty ogonek">
+    </div>
+
+    <div id="slide-13" class="step slide" data-x="-2500" data-y="0" data-z="-4000" data-rotate-z="90">
+        <h2>Zastosowanie gospodarcze i medyczne</h2>
+        <ul>
+            <li><strong>Kulinaria:</strong> Barwnik (paella, risotto), desery.</li>
+            <li><strong>Medycyna:</strong> Depresja, trawienie, pamięć (badania nad Alzheimerem).</li>
+            <li><strong>Przemysł:</strong> Barwienie tkanin, perfumeria.</li>
         </ul>
     </div>
 
-    <div id="slide6" class="step slide" data-x="-2000" data-y="0">
-        <h2>Cykl wapienny (Część 2)</h2>
-        <h3>Gaszenie: Dodawanie wody</h3>
-        <ul>
-            <li><strong>Proces:</strong> Dodanie wody do Wapna palonego (CaO). Jest to reakcja wysoce <strong>egzotermiczna</strong> (wydziela ogromne ilości ciepła!).</li>
-            <li><strong>Produkt:</strong> Otrzymujemy <strong>Wodorotlenek wapnia (Ca(OH)<sub>2</sub>)</strong>, znany jako <strong>Wapno gaszone</strong>.</li>
-            <li><strong>Formy:</strong>
-                <ul>
-                    <li>Ciało stałe/Pasta = Wapno gaszone.</li>
-                    <li>Rozpuszczone w wodzie = <strong>Woda wapienna</strong>.</li>
-                </ul>
-            </li>
-            <li><strong>Równanie:</strong>
-                <div class="formula">CaO + H<sub>2</sub>O &rarr; Ca(OH)<sub>2</sub></div>
-            </li>
-        </ul>
+    <div id="slide-14" class="step slide" data-x="0" data-y="-2000" data-z="-2000" data-scale="2">
+        <h2>Porównanie geograficzne</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cecha</th>
+                    <th>Durian</th>
+                    <th>Szafran</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Strefa</strong></td>
+                    <td>Tropikalna (wilgotna)</td>
+                    <td>Podzwrotnikowa/Umiarkowana</td>
+                </tr>
+                <tr>
+                    <td><strong>Woda</strong></td>
+                    <td>Stałe opady</td>
+                    <td>Suche lato, wrażliwy na wilgoć</td>
+                </tr>
+                <tr>
+                    <td><strong>Rolnictwo</strong></td>
+                    <td>Sadownictwo (drzewa)</td>
+                    <td>Uprawa polowa (bylina)</td>
+                </tr>
+                <tr>
+                    <td><strong>Wartość</strong></td>
+                    <td>Świeży owoc, masa</td>
+                    <td>Przyprawa, niska masa/wysoka cena</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div id="slide7" class="step slide" data-x="-2000" data-y="1500">
-        <h2>Cykl wapienny (Część 3)</h2>
-        <h3>Twardnienie: Cykl się zamyka</h3>
-        <ul>
-            <li><strong>Zastosowanie:</strong> Wapno gaszone miesza się z piaskiem i wodą, aby uzyskać <strong>Zaprawę murarską</strong> (do łączenia cegieł).</li>
-            <li><strong>Chemia:</strong> Gdy zaprawa schnie, pochłania CO<sub>2</sub> z powietrza.</li>
-            <li><strong>Wynik:</strong> Zamienia się z powrotem w twardy Wapień (CaCO<sub>3</sub>)!</li>
-            <li><strong>Równanie:</strong>
-                <div class="formula">Ca(OH)<sub>2</sub> + CO<sub>2</sub> &rarr; CaCO<sub>3</sub> + H<sub>2</sub>O</div>
-            </li>
-        </ul>
-    </div>
-
-    <div id="slide8" class="step slide" data-x="0" data-y="1500">
-        <h2>Wapień w przyrodzie (Zjawiska krasowe)</h2>
-        <h3>Jak powstają jaskinie</h3>
-        <ul>
-            <li>Podczas gdy CaCO<sub>3</sub> nie rozpuszcza się w czystej wodzie, <em>rozpuszcza się</em> w deszczówce zawierającej CO<sub>2</sub> (kwaśny deszcz).</li>
-            <li><strong>Reakcja:</strong> Nierozpuszczalny węglan zmienia się w rozpuszczalny <strong>Wodorowęglan wapnia</strong>.
-                <div class="formula">CaCO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub> &rarr; Ca(HCO<sub>3</sub>)<sub>2</sub></div>
-            </li>
-            <li><strong>Wynik:</strong> Skała jest wypłukiwana, tworząc jaskinie. Gdy woda paruje wewnątrz jaskini, skała formuje się na nowo jako stalaktyty (sufit) i stalagmity (podłoga).</li>
-        </ul>
-    </div>
-
-    <div id="slide9" class="step slide" data-x="2000" data-y="1500">
-        <h2>Zastosowania praktyczne</h2>
-        <h3>Dlaczego wapień jest ważny?</h3>
-        <ul>
-            <li><strong>Budownictwo:</strong> Surowiec do produkcji cementu i betonu.</li>
-            <li><strong>Produkcja szkła:</strong> Ogrzewany z piaskiem i sodą kalcynowaną w celu wytworzenia szkła.</li>
-            <li><strong>Rolnictwo:</strong> Pokruszony wapień neutralizuje kwasowość gleby, dzięki czemu rośliny rosną lepiej.</li>
-            <li><strong>Codzienność:</strong> Używany jako wypełniacz w paście do zębów, papierze i białych farbach.</li>
-            <li><strong>Produkcja żelaza:</strong> Usuwa zanieczyszczenia (żużel) podczas wytapiania rudy żelaza.</li>
-        </ul>
-    </div>
-
-    <div id="slide10" class="step slide" data-x="4000" data-y="0" data-rotate="90">
+    <div id="slide-15" class="step slide" data-x="0" data-y="-4000" data-z="0" data-scale="4">
         <h2>Podsumowanie</h2>
-        <h3>Przegląd kluczowych pojęć</h3>
-        <ul>
-            <li><strong>Wapień</strong> = Węglan wapnia (CaCO<sub>3</sub>).</li>
-            <li><strong>Wapno palone</strong> = Tlenek wapnia (CaO).</li>
-            <li><strong>Wapno gaszone</strong> = Wodorotlenek wapnia (Ca(OH)<sub>2</sub>).</li>
-            <li><strong>Główna reakcja:</strong> Ogrzewanie wapienia uwalnia CO<sub>2</sub>.</li>
-            <li><strong>Pamiętaj:</strong> Łączy on biologię (muszle), geologię (skały) i chemię (reakcje) w jeden niezbędny materiał.</li>
-        </ul>
+        <ol>
+            <li>Wysoka wartość produktów zależy od specyficznej geografii.</li>
+            <li>Globalizacja i bogacenie się Chin zmieniają mapę rolnictwa.</li>
+            <li>Tradycja (ręczny zbiór szafranu) wciąż wygrywa z mechanizacją.</li>
+            <li>Egzotyczne uprawy to wyzwania dla środowiska (wylesianie).</li>
+        </ol>
+        <div style="margin-top: 50px; text-align: center;">
+            <h1 style="color: #444;">Dziękuję za uwagę</h1>
+        </div>
     </div>
 
-    <div id="overview" class="step" data-x="1000" data-y="0" data-scale="4" style="pointer-events: none;">
+    <div id="overview" class="step" data-x="0" data-y="500" data-scale="10" style="pointer-events: none;">
     </div>
 
 </div>
@@ -369,7 +430,6 @@
 <div id="impress-help"></div>
 
 <script>
-
     (function(document,window){"use strict";var lib;var pfx=(function(){var style=document.createElement("dummy").style,prefixes="Webkit Moz O ms Khtml".split(" "),memory={};return function(prop){if(typeof memory[prop]==="undefined"){var ucProp=prop.charAt(0).toUpperCase()+prop.substr(1),props=(prop+" "+prefixes.join(ucProp+" ")+ucProp).split(" ");memory[prop]=null;for(var i in props){if(style[props[i]]!==undefined){memory[prop]=props[i];break}}}return memory[prop]}})();var css=function(el,props){var key,pkey;for(key in props){if(props.hasOwnProperty(key)){pkey=pfx(key);if(pkey!==null){el.style[pkey]=props[key]}}}return el};var translate=function(t){return" translate3d("+t.x+"px,"+t.y+"px,"+t.z+"px) "};var rotate=function(r,revert){var order=r.order?r.order:"xyz";var css="";var axes=order.split("");if(revert){axes=axes.reverse()}for(var i=0;i<axes.length;i++){css+=" rotate"+axes[i].toUpperCase()+"("+r[axes[i]]+"deg)"}return css};var scale=function(s){return" scale("+s+") "};var computeWindowScale=function(config){var hScale=window.innerHeight/config.height,wScale=window.innerWidth/config.width,scale=hScale>wScale?wScale:hScale;if(config.maxScale&&scale>config.maxScale){scale=config.maxScale}if(config.minScale&&scale<config.minScale){scale=config.minScale}return scale};var body=document.body;var impressSupported=(pfx("perspective")!==null)&&(body.classList)&&(body.dataset);if(!impressSupported){body.className+=" impress-not-supported "}var roots={};var preInitPlugins=[];var preStepLeavePlugins=[];var defaults={width:1024,height:768,maxScale:1,minScale:0,perspective:1000,transitionDuration:1000};var empty=function(){return false};var impress=window.impress=function(rootId){if(!impressSupported){return{init:empty,goto:empty,prev:empty,next:empty,swipe:empty,tear:empty,lib:{}}}rootId=rootId||"impress";if(roots["impress-root-"+rootId]){return roots["impress-root-"+rootId]}lib=initLibraries(rootId);body.classList.remove("impress-not-supported");body.classList.add("impress-supported");var stepsData={};var activeStep=null;var currentState=null;var steps=null;var config=null;var windowScale=null;var root=lib.util.byId(rootId);var canvas=document.createElement("div");var initialized=false;var lastEntered=null;var onStepEnter=function(step){if(lastEntered!==step){lib.util.triggerEvent(step,"impress:stepenter");lastEntered=step}lib.util.triggerEvent(step,"impress:steprefresh")};var onStepLeave=function(currentStep,nextStep){if(lastEntered===currentStep){lib.util.triggerEvent(currentStep,"impress:stepleave",{next:nextStep});lastEntered=null}};var initStep=function(el,idx){var data=el.dataset,step={translate:{x:lib.util.toNumber(data.x),y:lib.util.toNumber(data.y),z:lib.util.toNumber(data.z)},rotate:{x:lib.util.toNumber(data.rotateX),y:lib.util.toNumber(data.rotateY),z:lib.util.toNumber(data.rotateZ||data.rotate),order:data.rotateOrder||"xyz"},scale:lib.util.toNumber(data.scale,1),transitionDuration:lib.util.toNumber(data.transitionDuration,config.transitionDuration),el:el};if(!el.id){el.id="step-"+(idx+1)}stepsData["impress-"+el.id]=step;css(el,{position:"absolute",transform:"translate(-50%,-50%)"+translate(step.translate)+rotate(step.rotate)+scale(step.scale),transformStyle:"preserve-3d"})};var initAllSteps=function(){steps=lib.util.$$(".step",root);steps.forEach(initStep)};var init=function(){if(initialized){return}execPreInitPlugins(root);var meta=lib.util.$("meta[name='viewport']")||document.createElement("meta");meta.content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no";if(meta.parentNode!==document.head){meta.name="viewport";document.head.appendChild(meta)}var rootData=root.dataset;config={width:lib.util.toNumber(rootData.width,defaults.width),height:lib.util.toNumber(rootData.height,defaults.height),maxScale:lib.util.toNumber(rootData.maxScale,defaults.maxScale),minScale:lib.util.toNumber(rootData.minScale,defaults.minScale),perspective:lib.util.toNumber(rootData.perspective,defaults.perspective),transitionDuration:lib.util.toNumber(rootData.transitionDuration,defaults.transitionDuration)};windowScale=computeWindowScale(config);lib.util.arrayify(root.childNodes).forEach(function(el){canvas.appendChild(el)});root.appendChild(canvas);document.documentElement.style.height="100%";css(body,{height:"100%",overflow:"hidden"});var rootStyles={position:"absolute",transformOrigin:"top left",transition:"all 0s ease-in-out",transformStyle:"preserve-3d"};css(root,rootStyles);css(root,{top:"50%",left:"50%",perspective:(config.perspective/windowScale)+"px",transform:scale(windowScale)});css(canvas,rootStyles);body.classList.remove("impress-disabled");body.classList.add("impress-enabled");initAllSteps();currentState={translate:{x:0,y:0,z:0},rotate:{x:0,y:0,z:0,order:"xyz"},scale:1};initialized=true;lib.util.triggerEvent(root,"impress:init",{api:roots["impress-root-"+rootId]})};var getStep=function(step){if(typeof step==="number"){step=step<0?steps[steps.length+step]:steps[step]}else if(typeof step==="string"){step=lib.util.byId(step)}return(step&&step.id&&stepsData["impress-"+step.id])?step:null};var stepEnterTimeout=null;var goto=function(el,duration,reason,origEvent){reason=reason||"goto";origEvent=origEvent||null;if(!initialized){return false}initAllSteps();if(!(el=getStep(el))){return false}window.scrollTo(0,0);var step=stepsData["impress-"+el.id];duration=(duration!==undefined?duration:step.transitionDuration);if(activeStep&&activeStep!==el){var event={target:activeStep,detail:{}};event.detail.next=el;event.detail.transitionDuration=duration;event.detail.reason=reason;if(origEvent){event.origEvent=origEvent}if(execPreStepLeavePlugins(event)===false){return false}el=event.detail.next;step=stepsData["impress-"+el.id];duration=event.detail.transitionDuration}if(activeStep){activeStep.classList.remove("active");body.classList.remove("impress-on-"+activeStep.id)}el.classList.add("active");body.classList.add("impress-on-"+el.id);var target={rotate:{x:-step.rotate.x,y:-step.rotate.y,z:-step.rotate.z,order:step.rotate.order},translate:{x:-step.translate.x,y:-step.translate.y,z:-step.translate.z},scale:1/step.scale};var zoomin=target.scale>=currentState.scale;duration=lib.util.toNumber(duration,config.transitionDuration);var delay=(duration/2);if(el===activeStep){windowScale=computeWindowScale(config)}var targetScale=target.scale*windowScale;if(activeStep&&activeStep!==el){onStepLeave(activeStep,el)}css(root,{perspective:(config.perspective/targetScale)+"px",transform:scale(targetScale),transitionDuration:duration+"ms",transitionDelay:(zoomin?delay:0)+"ms"});css(canvas,{transform:rotate(target.rotate,true)+translate(target.translate),transitionDuration:duration+"ms",transitionDelay:(zoomin?0:delay)+"ms"});if(currentState.scale===target.scale||(currentState.rotate.x===target.rotate.x&&currentState.rotate.y===target.rotate.y&&currentState.rotate.z===target.rotate.z&&currentState.translate.x===target.translate.x&&currentState.translate.y===target.translate.y&&currentState.translate.z===target.translate.z)){delay=0}currentState=target;activeStep=el;window.clearTimeout(stepEnterTimeout);stepEnterTimeout=window.setTimeout(function(){onStepEnter(activeStep)},duration+delay);return el};var prev=function(origEvent){var prev=steps.indexOf(activeStep)-1;prev=prev>=0?steps[prev]:steps[steps.length-1];return goto(prev,undefined,"prev",origEvent)};var next=function(origEvent){var next=steps.indexOf(activeStep)+1;next=next<steps.length?steps[next]:steps[0];return goto(next,undefined,"next",origEvent)};var tear=function(){lib.gc.teardown();delete roots["impress-root-"+rootId]};lib.gc.addEventListener(root,"impress:init",function(){steps.forEach(function(step){step.classList.add("future")});lib.gc.addEventListener(root,"impress:stepenter",function(event){event.target.classList.remove("past");event.target.classList.remove("future");event.target.classList.add("present")},false);lib.gc.addEventListener(root,"impress:stepleave",function(event){event.target.classList.remove("present");event.target.classList.add("past")},false)},false);lib.gc.addEventListener(root,"impress:init",function(){var lastHash="";lib.gc.addEventListener(root,"impress:stepenter",function(event){window.location.hash=lastHash="#/"+event.target.id},false);lib.gc.addEventListener(window,"hashchange",function(){if(window.location.hash!==lastHash){goto(lib.util.getElementFromHash())}},false);goto(lib.util.getElementFromHash()||steps[0],0)},false);body.classList.add("impress-disabled");return(roots["impress-root-"+rootId]={init:init,goto:goto,next:next,prev:prev,tear:tear,lib:lib})};impress.supported=impressSupported;var libraryFactories={};impress.addLibraryFactory=function(obj){for(var libname in obj){if(obj.hasOwnProperty(libname)){libraryFactories[libname]=obj[libname]}}};var initLibraries=function(rootId){var lib={};for(var libname in libraryFactories){if(libraryFactories.hasOwnProperty(libname)){lib[libname]=libraryFactories[libname](rootId)}}return lib};impress.addPreInitPlugin=function(plugin,weight){weight=parseInt(weight)||10;if(preInitPlugins[weight]===undefined){preInitPlugins[weight]=[]}preInitPlugins[weight].push(plugin)};var execPreInitPlugins=function(root){for(var i=0;i<preInitPlugins.length;i++){var thisLevel=preInitPlugins[i];if(thisLevel!==undefined){for(var j=0;j<thisLevel.length;j++){thisLevel[j](root)}}}};impress.addPreStepLeavePlugin=function(plugin,weight){weight=parseInt(weight)||10;if(preStepLeavePlugins[weight]===undefined){preStepLeavePlugins[weight]=[]}preStepLeavePlugins[weight].push(plugin)};var execPreStepLeavePlugins=function(event){for(var i=0;i<preStepLeavePlugins.length;i++){var thisLevel=preStepLeavePlugins[i];if(thisLevel!==undefined){for(var j=0;j<thisLevel.length;j++){if(thisLevel[j](event)===false){return false}}}}}})(document,window);
     
     (function(document,window){"use strict";var roots=[];var libraryFactory=function(rootId){if(roots[rootId]){return roots[rootId]}var elementList=[];var eventListenerList=[];var callbackList=[];var pushElement=function(element){elementList.push(element)};var appendChild=function(parent,element){parent.appendChild(element);pushElement(element)};var pushEventListener=function(target,type,listenerFunction){eventListenerList.push({target:target,type:type,listener:listenerFunction})};var addEventListener=function(target,type,listenerFunction){target.addEventListener(type,listenerFunction);pushEventListener(target,type,listenerFunction)};var pushCallback=function(callback){callbackList.push(callback)};var teardown=function(){var i;for(i=callbackList.length-1;i>=0;i--){callbackList[i](rootId)}callbackList=[];for(i=0;i<elementList.length;i++){elementList[i].parentElement.removeChild(elementList[i])}elementList=[];for(i=0;i<eventListenerList.length;i++){var target=eventListenerList[i].target;var type=eventListenerList[i].type;var listener=eventListenerList[i].listener;target.removeEventListener(type,listener)}};var lib={pushElement:pushElement,appendChild:appendChild,pushEventListener:pushEventListener,addEventListener:addEventListener,pushCallback:pushCallback,teardown:teardown};roots[rootId]=lib;return lib};window.impress.addLibraryFactory({gc:libraryFactory})})(document,window);
@@ -484,7 +544,6 @@
         });
     })(document);
     
-
     var makeDomElement = function ( html ) {
         var tempDiv = document.createElement("div");
         tempDiv.innerHTML = html;
@@ -772,6 +831,7 @@
     })(document);
 
     impress().init();
+
 </script>
 
 </body>
